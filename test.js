@@ -1,65 +1,83 @@
 let form = document.getElementById('addForm');
 let itemList = document.getElementById('items');
-
-
+let filte = document.getElementById('filter');
 
 //add item
 form.addEventListener('submit',addItem);
 
-//remove item
+//removing item from dom
 itemList.addEventListener('click',removeItem);
 
+//filter search
+filter.addEventListener('keydown',filterCheck);
 
 
 //add item function
 function addItem(e)
 {
-    //prent form submition
     e.preventDefault();
-
     
-    //getting value
-    var text = document.getElementById('item').value;
+    //get value
+    let item = document.getElementById('item').value;
 
-    //adding item
-    var li = document.createElement('li');
+    //creating li element or tag
+    let li = document.createElement('li');
 
-    //adding classname
-    li.className ='list-group-item';
+    //class name
+    li.className = 'list-group-item';
 
-    //adding text item
+    //append to li
+    li.appendChild(document.createTextNode(item));
 
-    li.appendChild(document.createTextNode(text));
+    //crat button 
+    let btn = document.createElement('button');
 
-    //button adding
-    var btn = document.createElement('button');
+    //adding class
+    btn.className = "btn btn-danger btn-sm float-right delete";
 
-    //adding class name
-    btn.className = 'btn btn-danger btn-sm float-right delete';
-
-    //appentding to btn
+    //appendint to btn
 
     btn.appendChild(document.createTextNode("X"));
 
-    //appending to li
-
+    //appnedin btn to li
     li.appendChild(btn);
 
-    //adding to dom
+    //appending to dom
     itemList.appendChild(li);
 
     form.reset();
-    
+
 }
 
+//removeItem functiion
 function removeItem(e)
 {
-    //checks if it contains classList delete
     if(e.target.classList.contains('delete'))
     {
         if(confirm('Are you sure?'))
         {
-            itemList.removeChild(e.target.parentElement);
+            itemList.removeChild(e.target.parentElement); 
         }
     }
+}
+
+// filtercheck function
+function filterCheck(e)
+{
+    let text = e.target.value.toLowerCase();
+
+    let items = itemList.getElementsByClassName('list-group-item');
+
+    Array.from(items).forEach(item =>{
+        
+        let itemName = item.firstChild.textContent;
+
+        if(itemName.toLowerCase().indexOf(text) != -1)
+        {
+            item.style.display = 'block';
+        }
+        else{
+            item.style.display = 'none';
+        }
+    });
 }
