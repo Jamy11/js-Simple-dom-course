@@ -80,4 +80,20 @@ function filterCheck(e)
             item.style.display = 'none';
         }
     });
+    
+    // let items = itemList.querySelectorAll('.list-group-item');
+
+    // console.log(items);
+
+    // items.forEach(item=>{
+    //     let itemName = item.firstChild.textContent;
+
+    //     if(itemName.toLowerCase().indexOf(text) != -1)
+    //     {
+    //         item.style.display = 'block';
+    //     }
+    //     else{
+    //         item.style.display = 'none';
+    //     }
+    // });
 }
